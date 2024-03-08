@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Usuario;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,18 +16,26 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 255);
             $table->string('email', 255);
+            $table->enum('tipo',['admin','lider','usuario']);
             $table->string('senha', 255);
             $table->string('foto', 255)->nullable();
-            $table->enum('sexo', ['M', 'F']);
-            $table->string('cpf', 11);
-            $table->string('rg', 11);
-            $table->string('naturalidade', 255);
-            $table->string('uf_naturalidade', 2);
-            $table->date('data_nasci');
-            $table->enum('estado_civil', ['solteiro', 'casado', 'viuvo', 'divorciado', 'separado', 'uniao_estavel']);
-            $table->string('telefone', 45);
+            $table->enum('sexo', ['M', 'F'])->nullable();
+            $table->string('cpf', 11)->nullable();
+            $table->string('rg', 11)->nullable();
+            $table->string('naturalidade', 255)->nullable();
+            $table->string('uf_naturalidade', 2)->nullable();
+            $table->date('data_nasci')->nullable();
+            $table->enum('estado_civil', ['solteiro', 'casado', 'viuvo', 'divorciado', 'separado', 'uniao_estavel'])->nullable();
+            $table->string('telefone', 45)->nullable();
             $table->timestamps();
         });
+
+        Usuario::create([
+            'nome' => 'Admin',
+            'email' => 'admin@mail.com',
+            'tipo' => 'admin',
+            'senha' => bcrypt('admin'),
+        ]);
     }
 
     /**

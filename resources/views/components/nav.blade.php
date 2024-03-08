@@ -23,8 +23,33 @@
                     </ul>
                 </li>
             </ul>
-            <a class="btn btn-success me-3">Entrar</a>
+
+            @if(!auth()->check())
+
+            <div class="nav-item dropdown me-3">
+                <a class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown">Entrar</a>
+                <ul class="dropdown-menu p-3" style="width: 190px">
+                    <form action="" method="">
+                        @csrf
+                        <div class="mx-3">
+                            <label for="usuario" class="form-label">Usuario</label>
+                            <input type="usuario" id="nome" name="nome" class="form-control">
+                        </div>
+
+                        <div class="mx-3 mb-3">
+                            <label for="senha" class="form-label">Senha</label>
+                            <input type="password" id="senha" name="senha" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary ms-5">Submit</button>
+
+                    </form>
+                </ul>
+            </div>
             <a class="btn btn-secondary">Cadastrar</a>
+
+            @elseif(auth()->check())
+                <p>logado</p>
+            @endif
         </div>
     </div>
 </nav>
